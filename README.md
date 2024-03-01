@@ -22,13 +22,13 @@ The application serves as a digital forum for informatics teachers who are membe
       <img src="./static/images/screenshot/menu_awal.png" height="300px">
 
     + Set MGMP meeting schedules<br>
-      <img src="./static/images/screenshot/jadwal_pertemuan.png" height="300px"> <img src="./static/images/screenshot/update_jadwal.png" height="300px">
+      <img src="./static/images/screenshot/jadwal.png" height="300px"><br><img src="./static/images/screenshot/jadwal_pertemuan.png" height="300px"> <img src="./static/images/screenshot/update_jadwal.png" height="300px">
 
     + Confirming new user<br>
       <img src="./static/images/screenshot/konfirmasi.png" height="300px">
 
     + Manage mgmp community board member data<br>
-      <img src="./static/images/screenshot/pengurus.png" height="300px"> <img src="./static/images/screenshot/pengurus_edit.png" height="300px">
+      <img src="./static/images/screenshot/pengurus1.png" height="300px"><br><img src="./static/images/screenshot/pengurus.png" height="300px"> <img src="./static/images/screenshot/pengurus_edit.png" height="300px">
 
     + Manage school data<br>
       <img src="./static/images/screenshot/sekolah.png" height="300px"> <img src="./static/images/screenshot/sekolah_edit.png" height="300px">
@@ -63,7 +63,21 @@ The application serves as a digital forum for informatics teachers who are membe
 
     + Download or view good practice files<br>
       <img src="./static/images/screenshot/file_praktik.png" height="300px">
-      
+
+## Database
+> Using SQLite
+  <img src="./static/images/screenshot/database.png" height="300px">
+  Our app use SQLite with database name <b>simgmpinformatika.db</b> has 8 tables:
+
+  - <b>akun_login</b> for manage data that use to login
+  - <b>data_akun</b> for manage informatics teacher datas
+  - <b>data_kepsek</b> for manage principal datas
+  - <b>data_sekolah</b> for manage school datas
+  - <b>pengurus</b> for manage member of community board datas
+  - <b>perangkat_pembelajaran</b> for manage lesson plans datas
+  - <b>pertemuan</b> for manage MGMP meeting schedule datas
+  - <b>praktik_baik</b> for manage good practice datas
+
 ## About CS50
 This is CS50x , Harvard University's introduction to the intellectual enterprises of computer science and the art of programming for majors and non-majors alike, with or without prior programming experience. An entry-level course taught by David J. Malan, CS50x teaches students how to think algorithmically and solve problems efficiently. Topics include abstraction, algorithms, data structures, encapsulation, resource management, security, software engineering, and web development. Languages include C, Python, SQL, and JavaScript plus CSS and HTML. Problem sets inspired by real-world domains of biology, cryptography, finance, forensics, and gaming. The on-campus version of CS50x , CS50, is Harvard's largest course. 
 
