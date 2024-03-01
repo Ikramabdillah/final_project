@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Konfirmasi Akun Anggota MGMP
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row top-50">
+        <section style="background-color: #eee;">
+            <div class="container py-5">
+              <div class="row">
+                <div class="col">
+                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <h3>Detail Konfirmasi Akun Anggota MGMP</h3>
+                  </nav>
+                </div>
+              </div>
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr class="align-middle">
+                            <th>Nama</th><th>Asal Sekolah</th><th>Username</th><th>Alamat Email</th><th>Status</th><th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for row in rows %}
+                        <tr class="align-middle">
+                          <form action="/konfirmasi" method="post" onSubmit="if(!confirm('Apakah anda akan melakukan perubahan pada data ini?')){return false;}">
+                            <input type="hidden" name="id" value="{{row.id}}">
+                            <td class="text-left">{{row.nama}}</td><td>{{row.nama_sekolah}}</td><td>{{row.username}}</td><td>{{row.email}}</td><td><button {% if row.status == "Aktif" %}class="btn btn-info"{% else %}class="btn btn-danger" {% endif %}disabled>{{row.status}}</button></td><th>{% if row.status == "Tidak Aktif" %}<input type="submit" name="action" class="btn btn-primary" value="Aktifkan">{% else %}<input type="submit" name="action" class="btn btn-danger" value="Nonaktifkan">{% endif %}</th>
+                          </form>
+                          </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <ul class="pagination justify-content-center">
+              <li class="page-item">
+                {% if page > 1 %}
+                <a class="page-link" href="{{url_for('konfirmasi', page=page-1)}}" tabindex="-1" aria-disabled="true">Sebelumnya</a>
+                {% endif %}
+              </li>
+              <li class="page-item"><span class="page-link">{{page}} dari {{data}}</span></li>
+              {% if page < data %}
+              <li class="page-item">
+                <a class="page-link" href="{{url_for('konfirmasi', page=page+1)}}">Selanjutnya</a>
+              </li>
+              {% endif %}
+              </ul>
+          </section>
+    </div>
+</div>
+
+{% endblock %}

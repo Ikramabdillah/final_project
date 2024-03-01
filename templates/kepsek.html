@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Data Kepala Sekolah
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row top-50">
+        <section style="background-color: #eee;">
+            <div class="container py-5">
+              <div class="row">
+                <div class="col">
+                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <h3>Daftar Kepala Sekolah</h3>
+                  </nav>
+
+                </div>
+                <div class="p-3 mb-4">
+                  <button class="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#tambahKepsek">Tambah Kepala Sekolah</button>
+                </div>
+              </div>
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr class="align-middle">
+                            <th width="40%">Nama Kepala Sekolah</th><th width="40%">NIP Kepala Sekolah</th><th></th><th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <form action="/sekolah" method="post" onSubmit="if(!confirm('Apakah anda ingin menghapus data kepala sekolah ini?')){return false;}">
+                        {% for row in rows %}
+                        <tr class="align-middle">
+                            <td><input type="hidden" name="idHapus" value="{{row.id}}">{{row.nama_kepsek}}</td><td>{{row.nip_kepsek}}</td><th><button type="button" data-bs-toggle="modal" data-bs-target="#kepsekModal" data-bs-id="{{row.id}}" data-bs-nama="{{row.nama_kepsek}}" data-bs-nip="{{row.nip_kepsek}}" class="btn btn-warning pr-2">Edit</button></th><th><input type="submit" name="action" class="btn btn-danger" value="Hapus"></th>
+                          </tr>
+                        {% endfor %}
+                        </form>
+                    </tbody>
+                </table>
+
+            </div>
+            <ul class="pagination justify-content-center">
+              <li class="page-item">
+                {% if page > 1 %}
+                <a class="page-link" href="{{url_for('kepsek', page=page-1)}}" tabindex="-1" aria-disabled="true">Sebelumnya</a>
+                {% endif %}
+              </li>
+              <li class="page-item"><span class="page-link">{{page}} dari {{data}}</span></li>
+              {% if page < data %}
+              <li class="page-item">
+                <a class="page-link" href="{{url_for('kepsek', page=page+1)}}">Selanjutnya</a>
+              </li>
+              {% endif %}
+              </ul>
+          </section>
+    </div>
+</div>
+
+<div class="modal fade" id="kepsekModal" tabindex="-1" aria-labelledby="kepsekModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="kepsekModalLabel">Edit Data Kepala Sekolah</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/kepsek" method="post" class="text-left">
+          <input type="hidden" name="id_kepsek" id="id_kepsek">
+          <div class="mb-3">
+            <label for="namaEditKepsek" class="col-form-label">Nama Kepala Sekolah:</label>
+            <input type="text" class="form-control" name="namaEditKepsek" id="namaEditKepsek">
+          </div>
+          <div class="mb-3">
+              <label for="nipEditKepsek" class="col-form-label">NIP Kepala Sekolah:</label>
+              <input type="text" class="form-control" id="nipEditKepsek" name="nipEditKepsek" aria-describedby="nipEditHelp">
+              <div id="alamatHelp" class="form-text text-left">Masukkan Nomor Induk Pegawai Kepala sekolah.</div>
+          </div>
+      <div class="modal-footer text-right">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" name="action" value="simpan" class="btn btn-primary">Simpan Data</button>
+      </div>
+    </form>
+    </div>
+  </form>
+  </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="tambahKepsek" tabindex="-1" aria-labelledby="tambahKepsekModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahKepsekModalLabel">Tambah Kepala Sekolah</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/kepsek" method="post" class="text-left">
+          <div class="mb-3">
+            <label for="namaTambahKepsek" class="col-form-label">Nama Kepala Sekolah:</label>
+            <input type="text" class="form-control" name="namaTambahKepsek" id="namaTambahKepsek" autofocus>
+          </div>
+          <div class="mb-3">
+              <label for="nipTambahKepsek" class="col-form-label">NIP Kepala Sekolah:</label>
+              <input type="text" class="form-control" id="nipTambahKepsek" name="nipTambahKepsek" aria-describedby="nipHelp">
+              <div id="alamatHelp" class="form-text text-left">Masukkan Nomor Induk Pegawai Kepala sekolah.</div>
+          </div>
+      <div class="modal-footer text-right">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" name="action" value="tambah"  class="btn btn-primary">Tambah Kepala Sekolah</button>
+      </div>
+    </form>
+    </div>
+  </form>
+  </div>
+</div>
+</div>
+<script>
+  var jadwalModal = document.getElementById('kepsekModal')
+  jadwalModal.addEventListener('show.bs.modal', function (event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var id_kepsek = button.getAttribute('data-bs-id')
+    var nama_kepsek = button.getAttribute('data-bs-nama')
+    var nip_kepsek = button.getAttribute('data-bs-nip')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    var modalBodyId = jadwalModal.querySelector('#id_kepsek')
+    var modalBodyNama = jadwalModal.querySelector('#namaEditKepsek')
+    var modalBodyNip = jadwalModal.querySelector('#nipEditKepsek')
+
+    modalBodyId.value = id_kepsek
+    modalBodyNama.value = nama_kepsek
+    modalBodyNip.value = nip_kepsek
+
+
+  })
+  </script>
+
+{% endblock %}
+

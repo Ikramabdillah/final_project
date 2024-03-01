@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tambah Praktik Baik
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row top-50">
+        <section style="background-color: #eee;">
+            <div class="container py-5">
+              <div class="row">
+                <div class="col">
+                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <h3>Berbagi Praktik Baik Anda</h3>
+                  </nav>
+                </div>
+
+              </div>
+              <form method="post" action="/tambah_praktik" enctype="multipart/form-data">
+                <table class="table table-striped align-middle">
+                    <tr class="text-left">
+                        <td width="20%"><label for="judulPraktik">Judul Praktik Baik</td><td><input class="form-control w-100" name="judulPraktik" id="judulPraktik" type="text" required></td>
+                    </tr>
+                    <tr class="text-left">
+                        <td width="20%"><label for="tingkatanPraktik">Tingkatan Praktik Baik</td>
+                        <td>
+                            <select class="form-select w-100" name="tingkatanPraktik" id="tingkatanPraktik">
+                                <option value="" selected disabled>Pilih Tingkatan Kelas</option>
+                                <option value="Kelas 7">Kelas 7</option>
+                                <option value="Kelas 8">Kelas 8</option>
+                                <option value="Kelas 9">Kelas 9</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="text-left">
+                        <td><label for="deskripsiPraktik">Deskripsi Praktik Baik</td>
+                        <td>
+                            <textarea class="form-control w-100" resize="none" rows="4" name="deskripsiPraktik" id="deskripsiPraktik" maxlength="700" aria-describedby="deskripsiHelp" required></textarea>
+                            <div id="deskripsiHelp" class="form-text text-left">Deskripsi praktik baik tidak lebih dari 700 karakter.</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Jenis File Praktik Baik</td>
+                        <td>
+                        <div class="form-check text-left">
+                            <input type="radio" class="form-check-input" name="jenisPraktik" id="pdfPraktik" value="pdf" onclick="javascript:fileCheck()">
+                            <label for="pdfPraktik" class="form-check-label">File PDF</label>
+                        </div>
+                        <div class="form-check text-left">
+                            <input type="radio" class="form-check-input" name="jenisPraktik" id="videoPraktik" value="link" onclick="javascript:fileCheck()">
+                            <label for="videoPraktik" class="form-check-label">Video dari YouTube</label>
+                        </div>
+                        </td>
+                    </tr>
+                </table>
+                <div id="linkForm" style="display: none;">
+                <table class="table table-striped align-middle">
+                    <tr>
+                        <td width="20%" class="text-left"><label for="linkPraktik">Link YouTube</td>
+                        <td><input type="text" class="form-control w-100" name="linkPraktik" id="linkPraktik"  aria-describedby="linkHelp">
+                        <div class="form-text text-left" id="linkHelp">Pastikan anda telah mengunggah video praktik baik anda di YouTube.</div>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+                <div id="pdfForm" style="display: none;">
+                    <table class="table table-striped align-middle">
+                        <tr>
+                            <td width="20%" class="text-left"><label for="pdfPraktik">Unggah File Praktik Baik</label></td>
+                            <td><input type="file" class="form-control" id="pdfPraktik" name="pdfPraktik" accept="application/pdf"  aria-describedby="pdfHelp">
+                            <div class="form-text text-left" id="pdfHelp">File yang diupload harus berekstensi PDF dengan ukuran maksimal 3 mb.</div>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    <input type="submit" class="btn btn-secondary w-100" value="Tambah Praktik Baik">
+            </div>
+        </form>
+          </section>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function fileCheck() {
+    if (document.getElementById('pdfPraktik').checked) {
+        document.getElementById('pdfForm').style.display = 'block';
+        document.getElementById('linkForm').style.display = 'none';
+    } else if (document.getElementById('videoPraktik').checked) {
+        document.getElementById('pdfForm').style.display = 'none';
+        document.getElementById('linkForm').style.display = 'block';
+    }}
+
+</script>
+{% endblock %}
+

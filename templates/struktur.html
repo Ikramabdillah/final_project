@@ -1,0 +1,31 @@
+<h3 class="p-3 mt-0">DAFTAR PENGURUS<br>MGMP INFORMATIKA SMP/MTS<br>PERIODE 2021-2024</h3>
+
+<div class="container py-6"><!-- Slider main container -->
+    <div class="swiper mySwiper-RANDOMID">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper"><!-- Slides -->
+            {% for member in members %}
+            <div class="swiper-slide">
+                <div class="card shadow mx-auto">
+                    <div class="card-body">
+                        <div class="lc-block">
+                            <img class="img-fluid" {% if member.jenis_kelamin == "Laki-laki" %} src="/static/images/avatars/user-03.jpg" {% else %} src="/static/images/avatars/woman.jpg" {% endif %}sizes="(max-width: 1080px) 100vw, 1080px" width="1080" height="1080" alt="Photo by Marla Gottschalk" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <div class="lc-block mb-3">
+                                <div editable="rich">
+                                    <h3 class="responsive-font-example">{{member.nama}}</h3>
+                                    <p class="text-muted">{{member.jabatan}}</p>
+                                    <p>{{member.nama_sekolah}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        <!-- If we need pagination -->
+        <div class="swiper-pagination position-relative pt-5 bottom-0"></div>
+    </div>
+</div>
+</div>

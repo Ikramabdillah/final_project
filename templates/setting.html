@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Pengaturan Username dan Password
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row top-50">
+        <section style="background-color: #eee;">
+            <div class="container py-5">
+              <div class="row">
+                <div class="col">
+                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <h3>Pengaturan Username dan Kata Sandi</h3>
+                  </nav>
+                </div>
+              </div>
+                <table class="table table-hover table-striped">
+                    <form action="/setting" method="post">
+                        {% for row in rows %}
+                        <input type="hidden" name="id_user" value="{{row.id_user}}">
+                        <tr>
+                            <th class="text-left">Username</th><th><input type="text" class="form-control" name="usernameEdit" value="{{row.username}}"></th>
+                          </tr>
+                          <tr>
+                            <th class="text-left">Kata Sandi</th><th><div class="input-group"><input type="password" class="form-control" id="passwordEdit" name="passwordEdit" aria-describedby="passwordHelp">
+                                <span class="input-group-text">
+                                    <i class="fa fa-eye" id="togglePassword"
+                                   style="cursor: pointer"></i>
+                                </span>
+                            </div>
+                            <div id="passwordHelp" class="form-text text-left">Kata sandi minimal 8 karakter kombinasi huruf dan angka.</div>
+                            </th>
+                          </tr>
+                          <tr>
+                            <th class="text-left">Konfirmasi Kata Sandi</th><th><input type="password" class="form-control" name="confirmation"></th>
+                          </tr>
+                          <tr>
+                          <th></th><th class="text-left"><input type="submit" class="btn btn-secondary" name="update" value="Simpan Data"></th>
+                            </tr>
+                          {% endfor %}
+                    </form>
+                </table>
+            </div>
+          </section>
+    </div>
+</div>
+
+<script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#passwordEdit");
+
+    togglePassword.addEventListener("click", function () {
+
+    // toggle the type attribute
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+    // toggle the eye icon
+    this.classList.toggle('fa-eye');
+    this.classList.toggle('fa-eye-slash');
+    });
+</script>
+{% endblock %}

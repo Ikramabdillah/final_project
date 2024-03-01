@@ -1,0 +1,181 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cari Praktik Baik
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row top-50">
+        <div class="card bg-light flex-fill">
+            <div class="card-body mb-3">
+                <form action="/cari_praktik" method="post">
+                <label for="cariPraktik">
+                <h4>Cari Ide Praktik Baik</h4>
+                </label>
+                <div class="input-group rounded">
+                <input type="search" class="form-control rounded" name="caripraktik" value="{{cari}}" placeholder="Ketik ide praktik . . . ." id="cariPraktik" />
+                <button type="submit" class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </button>
+                </div>
+        </form>
+      </div>
+        </div>
+    </div>
+    {% if session['user_id'] or session['admin'] %}
+    <div class="row top-50">
+      <div class="card bg-light h-100">
+          <div class="card-body p-3">
+            <a href="/tambah_praktik" class="btn btn-secondary w-100">Tambahkan ide praktik baik</a>
+          </div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="row top-50">
+        <div class="card shadow bg-light p-3">
+            {% if not rows %}
+            <h5>Tidak ada hasil pencarian untuk <b>{{cari}}</b>. Coba kata kunci lainnya!</h5>
+            {% else %}
+            <h5 class="text-left">Berikut hasil pencarian untuk <i>{{cari}}</i>:</h5>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 top-10">
+        <!---card start-->
+        {% for row in rows %}
+        <div class="col mb-3">
+            <div class="card-group h-100">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Praktik Baik</h5>
+                    </div>
+                    <div class="container-1">
+                    <img src="/static/images/praktik.png" class="card_img_top image" alt="praktik_baik" />
+                            <div class="middle">
+                              <button class="btn btn-outline-secondary btn-lg" data-bs-target="#jadwalModal" data-bs-toggle="modal" data-bs-user="{{row.nama_user}}" data-bs-judul="{{row.judul_praktik}}" data-bs-kelas="{{row.tingkatan}}" data-bs-deskripsi="{{row.deskripsi}}" data-bs-size="{{row.size_file}}" data-bs-tanggal="{{row.tanggal}}" data-bs-tipe="{{row.tipe_file}}" data-bs-file="{{row.nama_file}}">Lihat Detail</button>
+                            </div>
+                          </div>
+                    <div class="card-body text-left">
+                        <h5 class="card-title">{{row.judul_praktik}}</h5>
+                        <p class="card-text">{{row.deskripsi_str}}.....</p>
+                    </div>
+                    <div class="card-footer text-left">
+                        <small class="text-muted"><i class="fas fa-user" aria-hidden="true"></i> {{row.nama_user}}</small>
+                    </div>
+                    <div class="card-footer text-left">
+                        <small class="text-muted"><i class="fas fa-graduation-cap" aria-hidden="true"></i> {{row.tingkatan}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!----end of each card-->
+</div>
+{% if hasil >= 1 %}
+<ul class="pagination justify-content-center">
+  <li class="page-item">
+    {% if page > 1 %}
+    <a class="page-link" href="{{url_for('cari_praktik', cari=cari, hasil=hasil, page=page-1)}}" tabindex="-1" aria-disabled="true">Sebelumnya</a>
+    {% endif %}
+  </li>
+  <li class="page-item"><span class="page-link">{{page}} dari {{data}}</span></li>
+  {% if page < data %}
+  <li class="page-item">
+    <a class="page-link" href="{{url_for('cari_praktik', cari=cari, hasil=hasil, page=page+1)}}">Selanjutnya</a>
+  </li>
+  {% endif %}
+  </ul>
+{% endif %}
+<div class="modal fade" id="jadwalModal" tabindex="-1" aria-labelledby="jadwalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="jadwalModalLabel">Detail Praktik Baik</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-left">
+            <div class="mb-3">
+              <div class="col-form h4" id="judulPraktik"></div>
+              <hr>
+                <div class="text-muted"><i class="fas fa-user" aria-hidden="true"></i> <span class="pr-30" id="userPraktik"></span>
+                  <i class="fas fa-graduation-cap" aria-hidden="true"></i> <span class="pr-30" id="kelasPraktik"></span>
+                  <i class="fas fa-save" aria-hidden="true"></i> <span class="pr-30" id="sizePraktik"></span>
+                  <i class="fas fa-calendar" aria-hidden="true"></i> <span class="pr-30" id="tanggalPraktik"></span>
+                </div>
+            </div>
+            <hr>
+            <div class="mb-3">
+                <div class="col-form"><span id="deskripsiPraktik"/></div>
+                </div>
+              <hr>
+              <div class="mb-3">
+                  <a class="btn btn-outline-dark" id="pdfButton" target="_blank" rel="noopener noreferrer"><div id="buttonPraktik"></div></a>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    var jadwalModal = document.getElementById('jadwalModal')
+
+
+    jadwalModal.addEventListener('show.bs.modal', function (event) {
+      // Button that triggered the modal
+      var button = event.relatedTarget
+      // Extract info from data-bs-* attributes
+      var judul = button.getAttribute('data-bs-judul')
+      var deskripsi = button.getAttribute('data-bs-deskripsi')
+      var user = button.getAttribute('data-bs-user')
+      var link = button.getAttribute('data-bs-link')
+      var kelas = button.getAttribute('data-bs-kelas')
+      var size = button.getAttribute('data-bs-size')
+      var tanggal = button.getAttribute('data-bs-tanggal')
+      var tipe_file = button.getAttribute('data-bs-tipe')
+      var file = button.getAttribute('data-bs-file')
+
+
+
+      // Update the modal's content.
+      var modalBodyJudul = jadwalModal.querySelector('#judulPraktik')
+      var modalBodyDeskripsi = jadwalModal.querySelector('#deskripsiPraktik')
+      var modalBodyUser = jadwalModal.querySelector('#userPraktik')
+      var modalBodyKelas = jadwalModal.querySelector('#kelasPraktik')
+      var modalBodySize = jadwalModal.querySelector('#sizePraktik')
+      var modalBodyTanggal = jadwalModal.querySelector('#tanggalPraktik')
+      var modalBodyFile = jadwalModal.querySelector('#pdfButton')
+      var modalBodyButton = jadwalModal.querySelector('#buttonPraktik')
+
+      modalBodyJudul.textContent = judul
+      modalBodyDeskripsi.textContent = deskripsi
+      modalBodyUser.textContent = user
+      modalBodyKelas.textContent = kelas
+      modalBodySize.textContent = size
+      modalBodyTanggal.textContent = tanggal
+
+      if (tipe_file == "pdf")
+      {
+        modalBodyButton.textContent = "Lihat File Praktik Baik"
+        modalBodyFile.href = "static/praktik/" + file
+      }
+      else if (tipe_file == "link")
+      {
+        modalBodyButton.textContent = "Lihat Video Praktik Baik"
+        modalBodyFile.href = file
+      }
+
+
+
+
+    })
+    </script>
+
+{% endblock %}

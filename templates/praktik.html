@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="card bg-light">
+        <div class="card-header">
+        <h3>Apa itu Praktik Baik?</h3>
+        </div>
+        <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <p>Ide Praktik berisi konten-konten praktik baik yang telah dikurasi oleh tim MGMP Informatika dari
+                Bukti Karya dan Video Inspirasi untuk menginspirasi guru dalam mempraktikkan pembelajaran yang
+                berpusat pada murid. Selain konten Bukti Karya dan Video Inspirasi yang telah dikurasi, Ide Praktik
+                juga akan menyediakan Cerita Praktik, yaitu cerita praktik baik dari guru terpilih berbentuk tulisan
+                yang dilengkapi dengan video dan foto. </p>
+        </blockquote>
+        </div>
+    </div>
+</div>
+<div class="row top-50">
+    <div class="card bg-light">
+        <div class="card-header">
+        <h4>Manfaat Praktik Baik</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">Mencari konten berdasarkan topik tertentu.</li>
+        <li class="list-group-item">Mendapatkan konten-konten berisi praktik baik dari sumber yang terpercaya karena sudah dikurasi oleh tim Kemendikbudristek.</li>
+        <li class="list-group-item">Guru dapat terinspirasi untuk merencanakan pembelajaran dan praktik yang sesuai dengan kondisi dan situasi sekolah dan murid masing-masing. </li>
+        <li class="list-group-item">Guru dapat saling berdiskusi tentang tantangan yang dihadapi dalam melaksanakan praktik baik.</li>
+        </ul>
+    </div>
+</div>
+<div class="row top-50">
+    <div class="card bg-light">
+        <div class="card-body mb-3">
+            <form action="/cari_praktik" method="post">
+            <label for="cariPraktik">
+            <h4>Cari Ide Praktik Baik</h4>
+            </label>
+            <div class="input-group rounded p-3">
+            <input type="search" class="form-control rounded" name="caripraktik" placeholder="Ketik ide praktik . . . ." id="cariPraktik" />
+            <button type="submit" class="input-group-text border-0" id="search-addon">
+                <i class="fa fa-search"></i>
+            </button>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div class="card bg-light mb-3 top-50">
+        <div class="card-body">
+            <h5>Ingin berbagi praktik baik? Klik di bawah ini!<br>Pastikan anda telah masuk ke akun anda.</h5>
+            {% if session["user_id"] or session["admin"] %}
+            <a class="btn btn-outline-dark w-100" href="/tambah_praktik">Tambah Praktik Baik</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

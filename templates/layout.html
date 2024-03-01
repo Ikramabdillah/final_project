@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <!-- http://getbootstrap.com/docs/5.1/ -->
+        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.3/js/all.js"></script>
+        <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
+        <script src="js/pdfThumbnails.js" data-pdfjs-src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.js"></script>
+
+        <link href="/static/images/logo.svg" rel="icon">
+
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <title>ITP (Informatics Teacher Platform): {% block title %}{% endblock %}</title>
+
+
+
+    </head>
+
+    <body>
+        <!-- lazily load the Swiper CSS file -->
+        <link rel="preload" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+        <!-- lazily load the Swiper JS file -->
+        <script defer="defer" src="https://unpkg.com/swiper@8/swiper-bundle.min.js" onload="initializeSwiperRANDOMID();"></script>
+
+        <!-- lc-needs-hard-refresh -->
+
+        <script>
+            function initializeSwiperRANDOMID(){
+                    const swiper = new Swiper(".mySwiper-RANDOMID", {
+                        slidesPerView: 1,
+                        grabCursor: true,
+                        spaceBetween: 30,
+
+                        pagination: {
+                            el: ".swiper-pagination",
+                            dynamicBullets: true,
+                        },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: 2,
+                            },
+                            992: {
+                                slidesPerView: 3,
+                            },
+                        },
+                    });
+                }
+        </script>
+
+        <style>
+            .mySwiper-RANDOMID .card {max-width:40rem}
+        </style>
+
+        <nav class="bg-light border navbar menu-br navbar-expand-md navbar-light fixed-top">
+            <div class="container-fluid" >
+                    <a class="navbar-brand" href="/">
+                    <img src="/static/images/logo_panjang.png" height="40">
+                    </a>
+                    <div class="collapse navbar-collapse" id="navbar">
+                    {% if session["user_id"] %}
+                        <ul class="navbar-nav me-auto mt-2">
+                            <li class="nav-item"><a class="nav-link active" href="/#beranda">Beranda</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/#perangkat">Perangkat Pembelajaran</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/#praktikbaik">Praktik Baik</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/#struktur">Pengurus MGMP</a></li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto mt-2 dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Akun</button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                <li class="dropdown-item ms-auto mt-2"><a class="nav-link" href="/akun">Profil</a></li>
+                                <li class="dropdown-item ms-auto mt-2"><a class="nav-link" href="/setting">Pengaturan</a></li>
+                                <li class="dropdown-item ms-auto mt-2"><a class="nav-link" href="/logout">Keluar</a></li>
+                            </ul>
+                        </ul>
+                    {% elif session['admin'] %}
+                    <ul class="navbar-nav me-auto mt-2">
+                        <li class="nav-item"><a class="nav-link active" href="/#beranda">Beranda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/#perangkat">Perangkat Pembelajaran</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/#praktikbaik">Praktik Baik</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Menu Admin</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/konfirmasi">Konfirmasi Akun</a></li>
+                                <li><a class="dropdown-item" href="/jadwal">Data Jadwal Pertemuan</a></li>
+                                <li><a class="dropdown-item" href="/pengurus">Data Pengurus MGMP</a></li>
+                                <li><a class="dropdown-item" href="/sekolah">Data Sekolah</a></li>
+                                <li><a class="dropdown-item" href="/kepsek">Data Kepala Sekolah</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mt-2 dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Akun</button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                            <li class="dropdown-item ms-auto mt-2"><a class="nav-link" href="/akun">Profil</a></li>
+                            <li class="dropdown-item ms-auto mt-2"><a class="nav-link" href="/setting">Pengaturan</a></li>
+                            <li class="dropdown-item ms-auto mt-2"><a class="nav-link" href="/logout">Keluar</a></li>
+                        </ul>
+                    </ul>
+                    {% else %}
+                        <ul class="navbar-nav me-auto mt-2">
+                            <li class="nav-item"><a class="nav-link active" href="/#beranda">Beranda</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/#perangkat">Perangkat Pembelajaran</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/#praktikbaik">Praktik Baik</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/#struktur">Pengurus MGMP</a></li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto mt-2">
+                            <li class="nav-item">
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Masuk</button>
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#registerModal">Daftar</button>
+                            </li>
+
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        {% with msg = get_flashed_messages(with_categories=True) %}
+        {% if msg %}
+            {% for category, message in msg %}
+            <header>
+                <div class="alert alert-{{category}} mb-0 text-center top-100" id="message_alert" role="alert">
+                    <strong>{{ message }}</strong>
+                </div>
+            </header>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <main class="container-fluid py-5 text-center">
+            {% block main %}{% endblock %}
+        </main>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Masuk Akun</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/" method="post">
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <span class="input-group-text">Username</span>
+              <input type="text" name="username" class="form-control" placeholder="Masukkan Username Anda" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Kata Sandi</span>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan Kata Sandi Anda">
+              <span class="input-group-text">
+                <i class="fa fa-eye" id="togglePassword"
+               style="cursor: pointer"></i>
+               </span>
+            </div>
+            <div class="input-group mb-3">
+              <input type="submit" name="login" class="btn btn-outline-dark" value="Masuk">
+            </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            Hubungi Admin MGMP jika akun belum terdaftar <a href="http://wa.me/6285398225280">disini</a>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registerModalLabel">Daftar Akun MGMP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/register" method="post">
+          <div class="modal-body">
+            <div class="mb-3">
+              <div class="col-auto text-left">
+                <label for="usernameReg" class="col-form-label">Username</label>
+              </div>
+            <div class="col-auto ">
+              <input type="text" id="usernameReg" name="usernameReg" class="form-control" aria-describedby="usernameHelp" required>
+            </div>
+            <div id="usernameHelp" class="form-text text-left">Username tidak boleh menggunakan spasi.</div>
+            </div>
+            <div class="mb-3">
+              <div class="col-auto  text-left">
+                <label for="passwordReg" class="col-form-label">Kata Sandi</label>
+              </div>
+              <div class="col-auto input-group">
+              <input type="password" id="passwordReg" name="passwordReg" class="form-control" aria-describedby="passwordHelp" required>
+              <span class="input-group-text">
+                <i class="fa fa-eye" id="togglePasswordReg"
+               style="cursor: pointer"></i>
+              </span>
+              </div>
+              <div id="passwordHelp" class="form-text text-left">Kata sandi minimal 8 karakter kombinasi huruf dan angka.</div>
+            </div>
+            <div class="mb-3">
+              <div class="col-auto  text-left">
+                <label for="nameReg" class="col-form-label">Nama Lengkap</label>
+              </div>
+              <div class="col-auto">
+              <input type="text" id="nameReg" name="nameReg" class="form-control" aria-describedby="nameHelp" required>
+              </div>
+              <div id="nameHelp" class="form-text text-left">Masukkan nama lengkap anda beserta gelar.</div>
+            </div>
+            <div class="mb-3">
+              <div class="col-auto  text-left">
+                <label for="emailReg" class="col-form-label">Alamat Email</label>
+              </div>
+              <div class="col-auto">
+              <input type="email" id="emailReg" name="emailReg" class="form-control" aria-describedby="emailHelp" required>
+              </div>
+              <div id="emailHelp" class="form-text text-left">Masukkan alamat email akun belajar anda.</div>
+            </div>
+            <div class="mb-3">
+              <div class="col-auto  text-left">
+                <label for="jenis_kelaminReg" class="col-form-label">Jenis Kelamin</label>
+              </div>
+              <div class="col-auto">
+              <select id="jenis_kelaminReg" name="jenis_kelaminReg" class="form-select" required>
+                <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="col-auto  text-left">
+                <label for="sekolahReg" class="col-form-label" required>Asal Sekolah</label>
+              </div>
+              <div class="col-auto">
+                <select class="form-select" id="sekolahReg" name="sekolahReg" aria-describedby="sekolahHelp">
+                  <option value="" disabled selected>Pilih Sekolah</option>
+                  {% for school in schools %}
+                  <option value="{{school.id}}">{{school.nama_sekolah}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div id="sekolahHelp" class="form-text text-left">Hubungi Admin jika sekolah anda tidak ada dalam daftar.</div>
+            </div>
+            <div class="mb-3">
+              <div class="col-auto">
+               <input type="submit" class="btn btn-secondary" value="Daftar Akun">
+              </div>
+            </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            Tunggu hingga admin mengaktifkan akun anda!
+          <a href="http://wa.me/6285398225280">Hubungi admin</a>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
+
+    togglePassword.addEventListener("click", function () {
+
+    // toggle the type attribute
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+    // toggle the eye icon
+    this.classList.toggle('fa-eye');
+    this.classList.toggle('fa-eye-slash');
+    });
+</script>
+<script>
+  const togglePasswordReg = document.querySelector("#togglePasswordReg");
+  const passwordReg = document.querySelector("#passwordReg");
+
+  togglePasswordReg.addEventListener("click", function () {
+
+  // toggle the type attribute
+  const type = passwordReg.getAttribute("type") === "password" ? "text" : "password";
+  passwordReg.setAttribute("type", type);
+  // toggle the eye icon
+  this.classList.toggle('fa-eye');
+  this.classList.toggle('fa-eye-slash');
+  });
+</script>
+
+
+<footer class="text-center text-lg-start bg-body-tertiary text-muted">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center p-4 border-bottom">
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block">
+      <span>Hubungi kami di:</span>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            MGMP Informatika Kab. Pangkep
+          </h6>
+          <p>
+            Aplikasi MGMP Informatika ini diharapkan mampu menjadi forum digital bagi guru informatika di Kabupaten Pangkajene dan Kepulauan
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Menu
+          </h6>
+          <p>
+            <a href="/#beranda" class="text-reset">Beranda</a>
+          </p>
+          <p>
+            <a href="/#perangkat" class="text-reset">Perangkat Pembelajaran</a>
+          </p>
+          <p>
+            <a href="/#praktikbaik" class="text-reset">Praktik Baik</a>
+          </p>
+          <p>
+            <a href="/#struktur" class="text-reset">Pengurus MGMP</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Lainnya
+          </h6>
+          <p>
+            <a href="/static/tutorial.pdf" class="text-reset">Tutorial Penggunaan Aplikasi</a>
+          </p>
+          <p>
+            <a href="https://wordwall.net/id/resource/19775807/game-informatika" class="text-reset">Games Informatika</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home"></i> Jl. Andi Mauraga No. 4, Tumampua</p>
+          <p>
+            <i class="fas fa-envelope"></i>
+             mgmpinformatika.pangkep@gmail.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i>085398225280</p>
+          <p><i class="fab fa-whatsapp me-3"></i>085398225280</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2024 Copyright:
+    <a class="text-reset fw-bold" href="http://wa.me/6285398225280">MGMP Informatika Kab. Pangkep</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+        <script>
+            setTimeout(function(){
+					document.querySelector("#message_alert").style.display = "none";
+				  }, 5000);
+        </script>
+
+       </body>
+
+</html>

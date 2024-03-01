@@ -1,0 +1,205 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Data Sekolah
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row top-50">
+        <section style="background-color: #eee;">
+            <div class="container py-5">
+              <div class="row">
+                <div class="col">
+                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <h3>Daftar Sekolah</h3>
+                  </nav>
+
+                </div>
+                <div class="p-3 mb-4">
+                  <button class="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#tambahSekolah">Tambah Data Sekolah</button>
+                </div>
+              </div>
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr class="align-middle">
+                            <th width="30%">Nama Sekolah</th><th>Alamat Sekolah</th><th>NPSN</th><th>Nama Kepala Sekolah</th><th></th><th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <form action="/sekolah" method="post" onSubmit="if(!confirm('Apakah anda ingin menghapus data sekolah ini?')){return false;}">
+                        {% for row in rows %}
+                        <tr class="align-middle">
+                            <td><input type="hidden" name="idHapus" value="{{row.id}}">{{row.nama_sekolah}}</td><td>{{row.alamat_sekolah}}</td><td>{{row.npsn}}</td><td>{{row.nama_kepsek}}</td><th><button type="button" data-bs-toggle="modal" data-bs-target="#jadwalModal" data-bs-id="{{row.id}}" data-bs-nama="{{row.nama_sekolah}}" data-bs-alamat="{{row.alamat_sekolah}}" data-bs-npsn="{{row.npsn}}" data-bs-kec="{{row.kecamatan}}" data-bs-kab="{{row.kab_kota}}" data-bs-kepsek="{{row.kepsek}}" class="btn btn-warning pr-2">Edit</button></th><th><input type="submit" name="action" class="btn btn-danger" value="Hapus"></th>
+                          </tr>
+                        {% endfor %}
+                        </form>
+                    </tbody>
+                </table>
+
+            </div>
+            <ul class="pagination justify-content-center">
+              <li class="page-item">
+                {% if page > 1 %}
+                <a class="page-link" href="{{url_for('sekolah', page=page-1)}}" tabindex="-1" aria-disabled="true">Sebelumnya</a>
+                {% endif %}
+              </li>
+              <li class="page-item"><span class="page-link">{{page}} dari {{data}}</span></li>
+              {% if page < data %}
+              <li class="page-item">
+                <a class="page-link" href="{{url_for('sekolah', page=page+1)}}">Selanjutnya</a>
+              </li>
+              {% endif %}
+              </ul>
+          </section>
+    </div>
+</div>
+
+<div class="modal fade" id="jadwalModal" tabindex="-1" aria-labelledby="jadwalModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="jadwalModalLabel">Edit Data Sekolah</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/sekolah" method="post" class="text-left">
+          <input type="hidden" name="id_sekolah" id="id_sekolah">
+          <div class="mb-3">
+            <label for="namaSekolah" class="col-form-label">Nama Sekolah:</label>
+            <input type="text" class="form-control" name="namaSekolah" id="namaSekolah">
+          </div>
+          <div class="mb-3">
+              <label for="alamatSekolah" class="col-form-label">Alamat Sekolah:</label>
+              <input type="text" class="form-control" id="alamatSekolah" name="alamatSekolah" aria-describedby="alamatHelp">
+              <div id="alamatHelp" class="form-text text-left">Masukkan alamat lengkap sekolah.</div>
+          </div>
+          <div class="mb-3">
+            <label for="npsnSekolah" class="col-form-label">NPSN Sekolah:</label>
+            <input type="text" class="form-control" id="npsnSekolah" name="npsnSekolah" aria-describedby="npsnHelp">
+            <div id="npsnHelp" class="form-text text-left">Masukkan Nomor Pokok Sekolah Nasional.</div>
+          </div>
+          <div class="mb-3">
+            <label for="kecamatanSekolah" class="col-form-label">Kecamatan:</label>
+            <input type="text" class="form-control" id="kecamatanSekolah" name="kecamatanSekolah">
+          </div>
+          <div class="mb-3">
+            <label for="kab_kotSekolah" class="col-form-label">Kabupaten/Kota:</label>
+            <input type="text" class="form-control" id="kab_kotSekolah" name="kab_kotSekolah">
+          </div>
+          <div class="mb-3">
+            <label for="kepsekSekolah" class="col-form-label">Kepala Sekolah:</label>
+            <select class="form-select" id="kepsekSekolah" name="kepsekSekolah">
+              <option value="" disabled selected>Pilih Nama Kepala Sekolah</option>
+              {% for kepsek in kepseks %}
+              <option value="{{kepsek.id}}">{{kepsek.nama_kepsek}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      <div class="modal-footer text-right">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" name="action" value="simpan" class="btn btn-primary">Simpan Data</button>
+      </div>
+    </form>
+    </div>
+  </form>
+  </div>
+</div>
+
+
+<div class="modal fade" id="tambahSekolah" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahModalLabel">Tambah Data Sekolah</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/sekolah" method="post" class="text-left">
+          <div class="mb-3">
+            <label for="namaTambahSekolah" class="col-form-label">Nama Sekolah:</label>
+            <input type="text" class="form-control" name="namaTambahSekolah" id="namaTambahSekolah">
+          </div>
+          <div class="mb-3">
+              <label for="alamatTambahSekolah" class="col-form-label">Alamat Sekolah:</label>
+              <input type="text" class="form-control" id="alamatTambahSekolah" name="alamatTambahSekolah" aria-describedby="alamatHelp">
+              <div id="alamatHelp" class="form-text text-left">Masukkan alamat lengkap sekolah.</div>
+          </div>
+          <div class="mb-3">
+            <label for="npsnTambahSekolah" class="col-form-label">NPSN Sekolah:</label>
+            <input type="text" class="form-control" id="npsnTambahSekolah" name="npsnTambahSekolah" aria-describedby="npsnHelp">
+            <div id="npsnHelp" class="form-text text-left">Masukkan Nomor Pokok Sekolah Nasional.</div>
+          </div>
+          <div class="mb-3">
+            <label for="kecamatanTambahSekolah" class="col-form-label">Kecamatan:</label>
+            <input type="text" class="form-control" id="kecamatanTambahSekolah" name="kecamatanTambahSekolah">
+          </div>
+          <div class="mb-3">
+            <label for="kab_kotTambahSekolah" class="col-form-label">Kabupaten/Kota:</label>
+            <input type="text" class="form-control" id="kab_kotTambahSekolah" name="kab_kotTambahSekolah">
+          </div>
+          <div class="mb-3">
+            <label for="kepsekTambahSekolah" class="col-form-label">Kepala Sekolah:</label>
+            <select class="form-select" id="kepsekTambahSekolah" name="kepsekTambahSekolah" aria-describedby="kepsekHelp">
+              <option value="" disabled selected>Pilih Nama Kepala Sekolah</option>
+              {% for kepsek in kepseks %}
+              <option value="{{kepsek.id}}">{{kepsek.nama_kepsek}}</option>
+              {% endfor %}
+            </select>
+            <div id="kepsekHelp" class="form-text text-left">Silahkan tambahkan data kepala sekolah jika belum ada di daftar.</div>
+          </div>
+        </div>
+      <div class="modal-footer text-right">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" name="action" value="tambah"  class="btn btn-primary">Tambah Data Sekolah</button>
+      </div>
+    </form>
+    </div>
+  </form>
+  </div>
+</div>
+
+<script>
+  var jadwalModal = document.getElementById('jadwalModal')
+  jadwalModal.addEventListener('show.bs.modal', function (event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var id_sekolah = button.getAttribute('data-bs-id')
+    var nama_sekolah = button.getAttribute('data-bs-nama')
+    var alamat_sekolah = button.getAttribute('data-bs-alamat')
+    var npsn = button.getAttribute('data-bs-npsn')
+    var kecamatan = button.getAttribute('data-bs-kec')
+    var kab_kot = button.getAttribute('data-bs-kab')
+    var nama_kepsek = button.getAttribute('data-bs-kepsek')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    var modalBodyId = jadwalModal.querySelector('#id_sekolah')
+    var modalBodyNama = jadwalModal.querySelector('#namaSekolah')
+    var modalBodyAlamat = jadwalModal.querySelector('#alamatSekolah')
+    var modalBodyNpsn = jadwalModal.querySelector('#npsnSekolah')
+    var modalBodyKecamatan = jadwalModal.querySelector('#kecamatanSekolah')
+    var modalBodyKab = jadwalModal.querySelector('#kab_kotSekolah')
+    var modalBodyKepsek = jadwalModal.querySelector('#kepsekSekolah')
+
+    modalBodyId.value = id_sekolah
+    modalBodyNama.value = nama_sekolah
+    modalBodyAlamat.value = alamat_sekolah
+    modalBodyNpsn.value = npsn
+    modalBodyKecamatan.value = kecamatan
+    modalBodyKab.value = kab_kot
+    if (nama_kepsek != null)
+    {
+      modalBodyKepsek.value = nama_kepsek
+    }
+
+
+  })
+  </script>
+
+{% endblock %}
+

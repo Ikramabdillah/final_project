@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Pengaturan Pengurus MGMP Informatika
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row top-50">
+        <section style="background-color: #eee;">
+            <div class="container py-5">
+              <div class="row">
+                <div class="col">
+                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <h3>Daftar Pengurus MGMP Informatika</h3>
+                  </nav>
+                </div>
+              </div>
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr class="align-middle">
+                            <th width="20%">Jabatan</th><th>Nama</th><th>Asal Sekolah</th><th>Jenis Kelamin</th><th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for member in members %}
+                        <tr class="align-middle">
+                            <td class="text-left">{{member.jabatan}}</td><td>{{member.nama}}</td><td>{{member.nama_sekolah}}</td><td>{{member.jenis_kelamin}}</td><th><button type="button" data-bs-toggle="modal" data-bs-target="#jadwalModal" data-bs-nama="{{member.nama}}" data-bs-jabatan="{{member.jabatan}}" data-bs-jk="{{member.jenis_kelamin}}" data-bs-id="{{member.id}}"data-bs-sekolah="{{member.asal_sekolah}}" class="btn btn-warning">Edit</button></th>
+                          </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+          </section>
+    </div>
+</div>
+
+<div class="modal fade" id="jadwalModal" tabindex="-1" aria-labelledby="jadwalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="jadwalModalLabel">Update Jadwal Pertemuan Ke-</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/pengurus" method="post" class="text-left">
+            <div class="mb-3">
+              <label for="namaEdit" class="col-form-label">Nama</label>
+              <input type="text" class="form-control" name="namaEdit" id="namaEdit">
+            </div>
+            <div class="mb-3">
+                <label for="sekolahEdit" class="col-form-label">Asal Sekolah:</label>
+                <select class="form-select" id="sekolahEdit" name="sekolahEdit" aria-describedby="sekolahHelp">
+                  <option value="" disabled>Asal Sekolah</option>
+                  {% for school in schools %}
+                    <option value="{{school.id}}" >{{school.nama_sekolah}}</option>
+                  {% endfor %}
+                </select>
+              <input type="hidden" name="id_pengurus" id="id_pengurus">
+              <div id="passwordHelp" class="form-text text-left">Hubungi Admin jika nama sekolah anda tidak ada di daftar.</div>
+            </div>
+            <div class="mb-3">
+              <label for="jkEdit" class="col-form-label">Jenis Kelamin:</label>
+              <select class="form-select" id="jkEdit" name="jkEdit">
+                  <option value="" disabled>Pilih jenis kelamin</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+              </select>
+          </div>
+        </div>
+        <div class="modal-footer text-right">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Data</button>
+        </div>
+      </form>
+      </div>
+    </form>
+    </div>
+  </div>
+
+<script>
+var jadwalModal = document.getElementById('jadwalModal')
+jadwalModal.addEventListener('show.bs.modal', function (event) {
+  // Button that triggered the modal
+  var button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  var jabatan = button.getAttribute('data-bs-jabatan')
+  var nama = button.getAttribute('data-bs-nama')
+  var sekolah = button.getAttribute('data-bs-sekolah')
+  var jk = button.getAttribute('data-bs-jk')
+  var id_pengurus = button.getAttribute('data-bs-id')
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  var modalTitle = jadwalModal.querySelector('.modal-title')
+  var modalBodyId = jadwalModal.querySelector('#id_pengurus')
+  var modalBodySekolah = jadwalModal.querySelector('#sekolahEdit')
+  var modalBodyNama = jadwalModal.querySelector('#namaEdit')
+  var modalBodyJk = jadwalModal.querySelector('#jkEdit')
+
+  modalTitle.textContent = 'Update Data ' + jabatan
+  modalBodySekolah.value = sekolah
+  modalBodyNama.value = nama
+  modalBodyId.value = id_pengurus
+  modalBodyJk.value = jk
+
+})
+</script>
+
+{% endblock %}

@@ -1,0 +1,314 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Akun Anda
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row top-50">
+        <section style="background-color: #eee;">
+            <div class="container py-5">
+              <div class="row">
+                <div class="col">
+                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <h3>Detail Informasi Akun</h3>
+                  </nav>
+                </div>
+              </div>
+            {% for row in rows %}
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card mb-4">
+                    <div class="card-body text-center">
+                      <img src="/static/images/avatars/{{row.foto_profil}}" alt="avatar"
+                        class="rounded-circle img-fluid border" style="width: 150px;">
+                      <h5 class="my-3">{{row.nama}}</h5>
+                      <p class="text-muted mb-1">{{row.nama_sekolah}}</p>
+                    </div>
+                  </div>
+                  <div class="card mb-4">
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush rounded-3">
+                            <li class="list-group-item align-items-center text-center-my p-3">
+                            <h6 class="mb-1">Informasi Kontak</h6>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                          <i class="fa fa-phone"></i>
+                          <p class="mb-0">0{{row.nomor_hp}}</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                          <i class="fa fa-envelope" style="color: #333333;"></i>
+                          <p class="mb-0">{{row.email_pribadi}}</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                          <i><img src="/static/images/icons/pmm.png" class="icon-pmm"></i>
+                          <p class="mb-0">{{row.email_pmm}}</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card mb-4">
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush rounded-3">
+                            <li class="list-group-item align-items-center text-center-my p-3">
+                            <h6 class="mb-1">Informasi Lainnya</h6>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                          <p class="mb-0">NIK</p>
+                          <p class="mb-0 text-muted">{{row.nik}}</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <p class="mb-0">NIP</p>
+                            <p class="mb-0 text-muted">{{row.nip}}</p>
+                          </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <p class="mb-0">NUPTK</p>
+                            <p class="mb-0 text-muted">{{row.nuptk}}</p>
+                          </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card mb-4 mb-lg-0">
+                    <button class="btn btn-secondary p-3" data-bs-toggle="modal" data-bs-target="#editDataModal">Edit Data</button>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-12">
+                        <h5 class="mb-3">Data Pribadi</h5>
+                        </div>
+                        <hr>
+                        <div class="col-sm-4">
+                          <p class="mb-0">Nama Lengkap</p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0">{{row.nama}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <p class="mb-0">Tempat/Tanggal Lahir</p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0">{{row.tempat_lahir}}, {{row.tanggal}} {{row.bulan}} {{row.tahun}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <p class="mb-0">Alamat</p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0">{{row.alamat}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <p class="mb-0">Jenis Kelamin</p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0">{{row.jenis_kelamin}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <p class="mb-0">Jenis Kepegawaian</p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0">{{row.jenis_kepegawaian}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <p class="mb-0">Jabatan/Golongan</p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0">{{row.gol_jab}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <p class="mb-0">Pendidikan Terakhir</p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0">{{row.pendidikan_terakhir}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <h5 class="mb-3">Data Sekolah</h5>
+                                </div>
+                                <hr>
+                            <div class="col-sm-4">
+                              <p class="mb-0">Nama Sekolah</p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0">{{row.nama_sekolah}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <p class="mb-0">Alamat Sekolah</p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0">{{row.alamat_sekolah}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <p class="mb-0">NPSN</p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0">{{row.npsn}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <p class="mb-0">Kecamatan</p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0">{{row.kecamatan}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <p class="mb-0">Kabupaten/Kota</p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0">{{row.kab_kota}}</p>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <p class="mb-0">Kepala Sekolah</p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0">{{row.nama_kepsek}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {% endfor %}
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editDataModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editDataModalLabel">Ubah Data Guru</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3 text-left" action="/akun" method="post">
+          {% for row in rows %}
+          <div class="col-md-4">
+            <label for="namaEdit" class="form-label">Nama</label>
+            <input type="text" class="form-control" name="editnama" id="namaEdit" value="{{row.nama}}">
+          </div>
+          <div class="col-md-4">
+            <label for="nikEdit" class="form-label">NIK</label>
+            <input type="text" class="form-control" name="editnik" id="nikEdit" value="{{row.nik}}">
+          </div>
+          <div class="col-md-4">
+            <label for="nipEdit" class="form-label">NIP</label>
+            <input type="text" class="form-control" name="editnip" id="nipEdit" value="{{row.nip}}">
+          </div>
+          <div class="col-md-4">
+            <label for="tempat_lahirEdit" class="form-label">Tempat Lahir</label>
+            <input type="text" class="form-control" name="edittempat_lahir" id="tempat_lahirEdit" value="{{row.tempat_lahir}}">
+          </div>
+          <div class="col-md-4">
+            <label for="alamatEdit" class="form-label">Alamat</label>
+            <input type="text" class="form-control" name="editalamat" id="alamatEdit" value="{{row.alamat}}">
+          </div>
+          <div class="col-md-4">
+            <label for="tanggal_lahirEdit" class="form-label">Tanggal Lahir</label>
+            <input type="date" class="form-control" name="edittanggal_lahir" id="tanggal_lahirEdit" value="{{row.tanggal_lahir}}">
+          </div>
+          <div class="col-md-4">
+            <label for="nomor_hpEdit" class="form-label">Nomor HP</label>
+            <input type="text" class="form-control" name="editnomor_hp" id="nomor_hpEdit" value="{{row.nomor_hp}}">
+          </div>
+          <div class="col-md-4">
+            <label for="nuptkEdit" class="form-label">NUPTK</label>
+            <input type="text" class="form-control" name="editnuptk" id="nuptkEdit" value="{{row.nuptk}}">
+          </div>
+          <div class="col-md-4">
+            <label for="jenis_kelaminEdit" class="form-label">Jenis Kelamin</label>
+            <select class="form-select" name="editjenis_kelamin" id="jenis_kelaminEdit">
+              <option value="Belum diisi" disabled>Pilih Jenis Kelamin</option>
+              <option value="Laki-laki"{% if row.jenis_kelamin == "Laki-laki" %} selected {% endif %}>Laki-laki</option>
+              <option value="Perempuan"{% if row.jenis_kelamin == "Perempuan" %} selected {% endif %}>Perempuan</option>
+          </select>
+          </div>
+          <div class="col-md-4">
+            <label for="gol_jabEdit" class="form-label">Jabatan/Golongan</label>
+            <input type="text" class="form-control" name="editgol_jab" id="gol_jabEdit" value="{{row.gol_jab}}">
+          </div>
+          <div class="col-md-4">
+            <label for="email_pribadiEdit" class="form-label">Alamat Email Pribadi</label>
+            <input type="text" class="form-control" name="editemail_pribadi" id="email_pribadiEdit" value="{{row.email_pribadi}}">
+          </div>
+          <div class="col-md-4">
+            <label for="email_pmmEdit" class="form-label">Alamat Email PMM</label>
+            <input type="text" class="form-control" name="editemail_pmm" id="email_pmmEdit" value="{{row.email_pmm}}">
+          </div>
+          <div class="col-md-4">
+            <label for="pendidikan_terakhirEdit" class="form-label">Pendidikan Terakhir</label>
+            <select class="form-select" name="editpendidikan_terakhir" id="pendidikan_terakhirEdit">
+              <option value="Belum diisi" {% if row.pendidikan_terakhir == "Belum diisi" %} selected {% endif %}disabled>Pilih Pendidikan Terakhir</option>
+              <option value="S1"{% if row.pendidikan_terakhir == "S1" %} selected {% endif %}>S1</option>
+              <option value="S2"{% if row.pendidikan_terakhir == "S2" %} selected {% endif %}>S2</option>
+              <option value="S3"{% if row.pendidikan_terakhir == "S3" %} selected {% endif %}>S3</option>
+          </select>
+          </div>
+          <div class="col-md-4">
+            <label for="jenis_kepegawaianEdit" class="form-label">Jenis Kepegawaian</label>
+            <input type="text" class="form-control" name="editjenis_kepegawaian" id="jenis_kepegawaianEdit" value="{{row.jenis_kepegawaian}}">
+          </div>
+          <div class="col-md-4">
+            <label for="sekolahEdit" class="form-label">Asal Sekolah</label>
+            <select class="form-select" name="editsekolah" id="sekolahEdit">
+              <option value="" disabled>Pilih asal sekolah</option>
+              {% for school in schools %}
+              <option value="{{school.id}}" {% if row.sekolah|string() == school.id|string() %} selected {% endif %}>{{school.nama_sekolah}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <input type="hidden" name="id" value="{{row.id}}">
+          {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" name="update" class="btn btn-primary">Simpan Data</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
