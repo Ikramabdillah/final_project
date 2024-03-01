@@ -137,6 +137,10 @@ Students who earn a satisfactory score on 9 problem sets (i.e., programming assi
 ## License
 > For open source project
 
+## Documentation
+- This video can provide more explanation on how the app works:
+  > Link here
+
 ## Acknolegments
 - Kementerian Pendidikan, Kebudayaan, Riset dan Teknologi
 - Direktorat Jendral Guru dan Tenaga Kependidikan
