@@ -37,7 +37,17 @@ The application serves as a digital forum for informatics teachers who are membe
       <img src="./static/images/screenshot/kepsek.png" height="300px"> <img src="./static/images/screenshot/kepsek_edit.png" height="300px">
   
   - Basic User for Teacher
+    + Register<br>
+      <img src="./static/images/screenshot/register_1.png" height="300px"> <img src="./static/images/screenshot/register_2.png" height="300px">
 
+    + Login<br>
+      <img src="./static/images/screenshot/login.png" height="300px">
+
+    + Account menu<br>
+      <img src="./static/images/screenshot/akun.png" height="300px"> <img src="./static/images/screenshot/akun2.png" height="300px">
+
+    + Data account edit<br>
+      <img src="./static/images/screenshot/edit_akun.png" height="300px">
 ## About CS50
 This is CS50x , Harvard University's introduction to the intellectual enterprises of computer science and the art of programming for majors and non-majors alike, with or without prior programming experience. An entry-level course taught by David J. Malan, CS50x teaches students how to think algorithmically and solve problems efficiently. Topics include abstraction, algorithms, data structures, encapsulation, resource management, security, software engineering, and web development. Languages include C, Python, SQL, and JavaScript plus CSS and HTML. Problem sets inspired by real-world domains of biology, cryptography, finance, forensics, and gaming. The on-campus version of CS50x , CS50, is Harvard's largest course. 
 
