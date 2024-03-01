@@ -21,6 +21,9 @@ The application serves as a digital forum for informatics teachers who are membe
     + set the appearance of the app's main page<br>
       <img src="./static/images/screenshot/menu_awal.png" height="300px">
 
+    + Footer with tutorial menu and interactive games<br>
+      <img src="./static/images/screenshot/footer.png" height="300px">
+
     + Set MGMP meeting schedules<br>
       <img src="./static/images/screenshot/jadwal.png" height="300px"><br><img src="./static/images/screenshot/jadwal_pertemuan.png" height="300px"> <img src="./static/images/screenshot/update_jadwal.png" height="300px">
 
@@ -63,6 +66,15 @@ The application serves as a digital forum for informatics teachers who are membe
 
     + Download or view good practice files<br>
       <img src="./static/images/screenshot/file_praktik.png" height="300px">
+
+    + Add own good practice<br>
+      <img src="./static/images/screenshot/add_praktik.png" height="300px">
+
+    + Add good practice by upload file<br>
+      <img src="./static/images/screenshot/add_pdf.png" height="300px">
+
+    + Add good practice by YouTube link<br>
+      <img src="./static/images/screenshot/add_link.png" height="300px">
 
 ## Database
 > Using SQLite
