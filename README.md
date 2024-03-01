@@ -48,6 +48,22 @@ The application serves as a digital forum for informatics teachers who are membe
 
     + Data account edit<br>
       <img src="./static/images/screenshot/edit_akun.png" height="300px">
+
+    + Username and password edit<br>
+      <img src="./static/images/screenshot/password.png" height="300px">
+
+    + Good practice menu<br>
+      <img src="./static/images/screenshot/good_practice.png" height="300px">
+
+    + Searching for good practice<br>
+      <img src="./static/images/screenshot/cari_praktik.png" height="300px">
+
+    + Good practice details<br>
+      <img src="./static/images/screenshot/detail_praktik.png" height="300px">
+
+    + Download or view good practice files<br>
+      <img src="./static/images/screenshot/file_praktik.png" height="300px">
+      
 ## About CS50
 This is CS50x , Harvard University's introduction to the intellectual enterprises of computer science and the art of programming for majors and non-majors alike, with or without prior programming experience. An entry-level course taught by David J. Malan, CS50x teaches students how to think algorithmically and solve problems efficiently. Topics include abstraction, algorithms, data structures, encapsulation, resource management, security, software engineering, and web development. Languages include C, Python, SQL, and JavaScript plus CSS and HTML. Problem sets inspired by real-world domains of biology, cryptography, finance, forensics, and gaming. The on-campus version of CS50x , CS50, is Harvard's largest course. 
 
