@@ -19,9 +19,23 @@ The application serves as a digital forum for informatics teachers who are membe
 > User:
   - Admin User for Admin
     + set the appearance of the app's main page<br>
-      <img src="./static/images/screenshot/menu_awal.png">
-    + Set MGMP meeting schedules
-      <img src=""> 
+      <img src="./static/images/screenshot/menu_awal.png" height="300px">
+
+    + Set MGMP meeting schedules<br>
+      <img src="./static/images/screenshot/jadwal_pertemuan.png" height="300px"> <img src="./static/images/screenshot/update_jadwal.png" height="300px">
+
+    + Confirming new user<br>
+      <img src="./static/images/screenshot/konfirmasi.png" height="300px">
+
+    + Manage mgmp community board member data<br>
+      <img src="./static/images/screenshot/pengurus.png" height="300px"> <img src="./static/images/screenshot/pengurus_edit.png" height="300px">
+
+    + Manage school data<br>
+      <img src="./static/images/screenshot/sekolah.png" height="300px"> <img src="./static/images/screenshot/sekolah_edit.png" height="300px">
+
+    + Manage principal data<br>
+      <img src="./static/images/screenshot/kepsek.png" height="300px"> <img src="./static/images/screenshot/kepsek_edit.png" height="300px">
+  
   - Basic User for Teacher
 
 ## About CS50
