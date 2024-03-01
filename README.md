@@ -18,8 +18,10 @@ The application serves as a digital forum for informatics teachers who are membe
   - Share and download good practice features
 > User:
   - Admin User for Admin
-    + set the appearance of the app's main page
-    + 
+    + set the appearance of the app's main page<br>
+      <img src="./static/images/screenshot/menu_awal.png">
+    + Set MGMP meeting schedules
+      <img src=""> 
   - Basic User for Teacher
 
 ## About CS50
