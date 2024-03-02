@@ -91,9 +91,9 @@
       | <img src="./static/images/screenshot/cari_praktik.png"> | <img src="./static/images/screenshot/detail_praktik.png"> |
 
     + Download or view good practice files<br>
-      | Good practice file views |
-      | :------: |
-      | <img src="./static/images/screenshot/file_praktik.png"> |
+      | Good practice file views | Good practice video views |
+      | :------: | :--------: |
+      | <img src="./static/images/screenshot/pdf_goodpractice.png"> | <img src="./static/images/screenshot/video_goodpractice.png"> |
 
     + Add own good practice<br>
       | Add good practice form |
