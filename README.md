@@ -11,7 +11,7 @@
 | :--: | :--: | :--: | :--: | :--: | :--: |
 
 ## About Application
-The application serves as a digital forum for informatics teachers who are members of the MGMP community. This application provides information about the MGMP Informatics community, starting from activities and documentation of activities, meeting schedules and ultimately the community management structure. In this application, teachers can share lesson plans and good practices about informatics learning in the classroom.
+`ITP (Informatic Teachers Platform)` serves as a digital forum for informatics teachers who are members of the MGMP community. This application provides information about the MGMP Informatics community, starting from activities and documentation of activities, meeting schedules and ultimately the community management structure. In this application, teachers can share lesson plans and good practices about informatics learning in the classroom.
 
 ## App Features
 > Features:
