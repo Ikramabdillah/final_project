@@ -140,7 +140,7 @@ Students who earn a satisfactory score on 9 problem sets (i.e., programming assi
 ## Documentation
 - This video can provide more explanation on how the app works:
   > <a href="https://www.youtube.com/watch?v=68mjlXaamWc&ab_channel=KakYudiOfficial">Click Here</a>
-## Acknolegments
+## Acknoledgments
 - Kementerian Pendidikan, Kebudayaan, Riset dan Teknologi
 - Direktorat Jendral Guru dan Tenaga Kependidikan
 - Direktorat Jendral Pendidikan Dasar dan Menengah
