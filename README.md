@@ -7,7 +7,7 @@
 
 > Build using CS, Python, Flask, HTML, JavaScript, Bootstrap, FontAwesome, and Sqlite for database
 
-| <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/pocoo_flask_logo_icon_168045.png" height="50px"> | <img src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png" height="50px"> | <img src="https://user-images.githubusercontent.com/30186107/29488525-f55a69d0-84da-11e7-8a39-5476f663b5eb.png" height="50px"> | <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png" height="50px"> | <img src="https://pbs.twimg.com/profile_images/1491038861224517637/s-H1KgWO_400x400.png" height="50px"> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Sqlite-square-icon.svg/1200px-Sqlite-square-icon.svg.png" height="50px"> |
+| <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/pocoo_flask_logo_icon_168045.png" height="50px"> | <img src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png" height="50px"> | <img src="https://user-images.githubusercontent.com/30186107/29488525-f55a69d0-84da-11e7-8a39-5476f663b5eb.png" height="50px"> | <img src="https://www.drupal.org/files/styles/grid-3-2x/public/project-images/font_awesome_logo.png?itok=26GjxSRO" height="50px"> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Sqlite-square-icon.svg/1200px-Sqlite-square-icon.svg.png" height="50px"> |
 | :--: | :--: | :--: | :--: | :--: | :--: |
 
 ## About Application
